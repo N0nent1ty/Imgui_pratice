@@ -1,0 +1,32 @@
+# Ignore temporary files
+*.tmp
+*.temp
+
+# Ignore built binary files
+*.exe
+*.out
+*.bin
+
+# Ignore CMake build directories
+build/
+*/Debug/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+version.h
+third_party/
+output/
+
+
+# Ignore Visual Studio Code settings
+.vscode/
+
+
+# Ignore asm imediete files
+*/*.obj
+*/*.lnk
+*/*.lst
+*/*.o
+*/*.d
+*/*.s
