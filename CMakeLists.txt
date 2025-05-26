@@ -79,6 +79,28 @@ target_include_directories(${PROJECT_NAME} PRIVATE
     src/
 )
 
+
+# ===========================================
+# 強制設定 MSVC UTF-8 編碼 (關鍵!)
+# ===========================================
+if(MSVC)
+    # 方法1: 使用 /utf-8 (最簡單有效)
+    add_compile_options(/utf-8)
+    
+    # 方法2: 明確指定源碼和執行編碼
+    # add_compile_options(/source-charset:utf-8 /execution-charset:utf-8)
+    
+    # 禁用字碼頁警告
+    add_compile_options(/wd4819)
+    
+    # 設定 Unicode 支援
+    add_compile_definitions(_UNICODE UNICODE)
+    
+    # 設定 Windows 版本
+    add_compile_definitions(WINVER=0x0601 _WIN32_WINNT=0x0601)
+endif()
+
+
 # Windows 專用設定
 if(WIN32)
     target_link_libraries(${PROJECT_NAME}
@@ -99,13 +121,13 @@ if(WIN32)
         advapi32
     )
 
-    set_target_properties(${PROJECT_NAME} PROPERTIES
-        WIN32_EXECUTABLE TRUE
-        VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}"
-    )
+    #set_target_properties(${PROJECT_NAME} PROPERTIES
+    #    WIN32_EXECUTABLE TRUE
+    #    VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}"
+    #)
 
     # 如果你想開啟 console 除錯視窗
-    # set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "/SUBSYSTEM:CONSOLE")
+     set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "/SUBSYSTEM:CONSOLE")
 endif()
 
 # 編譯器設定
